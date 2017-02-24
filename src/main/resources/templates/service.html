@@ -1,0 +1,15 @@
+package ${servicePackage};
+
+import java.util.Map;
+
+import ${modelPackage}.${modelName};
+import ${utilsPackage}.PageHelper;
+
+public interface ${modelName}Service {
+
+	public Map<String, Object> save${modelName}(${modelName} item);
+
+	public Map<String, Object> update${modelName}(${modelName} item);
+
+	public Map<String, Object> query${modelName}(${modelName} item, PageHelper ph);
+}

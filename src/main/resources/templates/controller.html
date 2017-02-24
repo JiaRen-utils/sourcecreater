@@ -1,0 +1,40 @@
+package com.health.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import ${modelPackage}.${modelName};
+import ${servicePackage}.${modelName}Service;
+import ${utilsPackage}.PageHelper;
+import ${utilsPackage}.ResponseConstant;
+import ${utilsPackage}.Return2AndriodFormat;
+
+@RestController
+@RequestMapping("/")
+public class ${modelName}Controller {
+	@Autowired
+	${modelName}Service ${modelName}Service;
+	
+	@RequestMapping("/${modelNameLower}/add")
+	public String ${modelName}Add(${modelName} item) {
+		Map<String, Object> result = ${modelName}Service.save${modelName}(item);
+		return JSONObject.toJSONString(Return2AndriodFormat.getResult(ResponseConstant.STATUS_OK, "成功", result),SerializerFeature.WriteMapNullValue,SerializerFeature.WriteDateUseDateFormat);
+	}
+	
+	@RequestMapping("/${modelNameLower}/update")
+	public String ${modelName}Update(${modelName} item) {
+		Map<String, Object> result = ${modelName}Service.update${modelName}(item);
+		return JSONObject.toJSONString(Return2AndriodFormat.getResult(ResponseConstant.STATUS_OK, "成功", result),SerializerFeature.WriteMapNullValue,SerializerFeature.WriteDateUseDateFormat);
+	}
+	
+	@RequestMapping("/${modelNameLower}/query")
+	public String ${modelName}Query(${modelName} item, PageHelper ph) {
+		Map<String, Object> result = ${modelName}Service.query${modelName}(item, ph);
+		return JSONObject.toJSONString(Return2AndriodFormat.getResult(ResponseConstant.STATUS_OK, "成功", result),SerializerFeature.WriteMapNullValue,SerializerFeature.WriteDateUseDateFormat);
+	}
+}

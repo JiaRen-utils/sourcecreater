@@ -1,0 +1,131 @@
+package ${daoPackage}.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Repository;
+
+import ${daoPackage}.${modelName}Dao;
+import ${modelPackage}.${modelName};
+import ${modelPackage}.ThNotification;
+import ${utilsPackage}.PageHelper;;
+
+@Repository
+public class ${modelName}DaoImpl extends BaseDaoImpl<${modelName}> implements ${modelName}Dao{
+
+	@Override
+	public List<${modelName}> getObjects(${modelName} item, PageHelper ph) {
+		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = " from ${modelName} t ";
+		List<${modelName}> list = find(hql
+				+ whereSql(item, params) + orderHql(ph) , params,
+				ph.getPage(), ph.getRows());
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getList(${modelName} item, PageHelper ph) {
+		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<String, Object>();
+		List<Map<String, Object>> list = getInfoListBySql(getListSql(item, params, ph), params);
+		return list;
+	}
+
+	@Override
+	public Long getListCount(${modelName} item) {
+		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select count(*) from ("
+				+ getListSql(item, params, null)
+				+ ") count";
+		return countBySql(sql, params);
+	}
+
+	@Override
+	public ${modelName} get(${modelName} item) {
+		// TODO Auto-generated method stub
+		String hql = " from ${modelName} t ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		${modelName} result = get(hql + whereSql(item,  params), params);
+		return item;
+	}
+
+	@Override
+	public Integer updateById(${modelName} item) {
+		// TODO Auto-generated method stub
+		if(item.${itemGetIdMethod}() == null) {
+			return null;
+		}
+		String hql = "update ${modelName} t ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		String setSql = setSql(item, params);
+		String whereIdHql = " where t.${itemIdName} = :${itemIdName}";
+		params.put("${itemIdName}", item.${itemGetIdMethod}());
+		return executeHql(hql + setSql + whereIdHql, params);
+	}
+
+	private String whereSql(${modelName} item, Map<String, Object> params) {
+		String whereSql = "";
+		whereSql += " where 1=1 ";
+		if(item != null) {
+		<#list sequenceWhere as item>
+			<#if item.isString>
+			if(StringUtils.isNotBlank(item.${item.methodName}())) {
+			<#else>
+			if(item.${item.methodName}() != null) {
+			</#if>
+				whereSql += " and t.${item.name} = :${item.name} ";
+				params.put("${item.name}", item.${item.methodName}());
+			}
+		</#list>
+		}
+		return whereSql;
+	}
+
+	private String setSql(${modelName} item, Map<String, Object> params) {
+		String setSql = "";
+		if(item != null) {
+			setSql += " set ";
+		<#list sequenceSet as item>
+			<#if item.isString>
+			if(StringUtils.isNotBlank(item.${item.methodName}())) {
+			<#else>
+			if(item.${item.methodName}() != null) {
+			</#if>
+				setSql += " t.${item.name} = :${item.nameNew},";
+				params.put("${item.nameNew}", item.${item.methodName}());
+			}
+		</#list>
+		}
+		if(StringUtils.endsWith(setSql, ",")){
+			setSql = setSql.substring(0, setSql.length() - 1); 
+		}
+		return setSql;
+	}
+
+	private String getListSql(${modelName} item, Map<String, Object> params, PageHelper ph) {
+		String sql = "SELECT "
+		<#list sequenceGetList as item>
+			<#if item.isLast != true>
+				+ "t.${item.name}, "
+			<#else>
+				+ "t.${item.name} "			
+			</#if>
+		</#list>
+				+ "FROM "
+				+ "${tableName} t ";
+		String orderString  = "";
+		if (ph !=null && StringUtils.isNotBlank(ph.getSort()) && StringUtils.isNotBlank(ph.getOrder())) {
+			orderString = " order by " + ph.getSort() + " " + ph.getOrder();
+		}
+		String limitString = "";
+		if(ph != null && ph.getRows() > 0 && ph.getPage() > 0) {
+			Integer index =  (ph.getPage() - 1)*ph.getRows();
+			limitString = " limit " + index + "," + new Integer(ph.getRows()); 
+		} 
+		return sql + whereSql(item, params) + orderString +  limitString;
+	}
+}
