@@ -49,6 +49,14 @@ public class Config {
 	
 	private List<Map<String, Object>> tableList;
 	
+	private List<List<Map<String, Object>>> listInfo;
+	
+	public List<List<Map<String, Object>>> getListInfo() {
+		return listInfo;
+	}
+	public void setListInfo(List<List<Map<String, Object>>> listInfo) {
+		this.listInfo = listInfo;
+	}
 	public List<Map<String, Object>> getTableList() {
 		return tableList;
 	}
