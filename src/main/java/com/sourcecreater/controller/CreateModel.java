@@ -1,4 +1,4 @@
-package com.sourcecreater;
+package com.sourcecreater.controller;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
