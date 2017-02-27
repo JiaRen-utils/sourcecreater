@@ -1,7 +1,9 @@
 package com.sourcecreater;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,21 +27,31 @@ import com.sourcecreater.controller.Config;
 @SpringBootTest
 public class SourcecreaterApplicationTests {
 	public static Config config = new Config();
-	private String serverPath = "http://localhost:8080";
-	private String srcPathCommon = "C:/Users/steve/Downloads/";    //dao、service
-	private String srcPathCtl = "C:/Users/steve/Downloads/";    //controller
-	
+	private static final String serverPath = "http://localhost:8080";
+	private static final String srcPathCommon = "C:/Users/steve/Downloads/";    //dao、service
+	private static final String srcPathCtl = "C:/Users/steve/Downloads/";    //controller
+	private static final String sqlConnectUrl = "jdbc:mysql://210.75.252.61/health?user=root&password=zhongkjy";
 	
 	@Test
-	public void config() {
+	public void config() throws UnsupportedEncodingException {
+		
+		config.setSqlConnectUrl(sqlConnectUrl);
 		config.setTableName("th_notification_all");
 		config.setDaoPackage("com.health.dao");
 		config.setServicePackage("com.health.service");
 		config.setServiceImplPackage("com.health.service.impl");
 		config.setModelPackage("com.health.model");
-		config.setModelName("ThNotificationAll");
 		config.setUtilsPackage("com.health.utils");
 		config.setCtlPackage("com.health.controller");
+		
+		
+		String[] tems = config.getTableName().split("[_]");
+		String modelName = "";
+		for(int i = 0;i < tems.length; i++) {
+			String tem = tems[i].substring(0, 1).toUpperCase() + tems[i].substring(1);
+			modelName = modelName + tem;
+		}
+		config.setModelName(modelName);
 		getDao();
 		getDaoImpl();
 		getService();
@@ -47,7 +59,7 @@ public class SourcecreaterApplicationTests {
 		getController();
 	}
 	
-	public void getDao() {
+	public void getDao() throws UnsupportedEncodingException {
 		RestTemplate restTemplate = new RestTemplate();
 
 		// Optional Accept header
@@ -67,7 +79,6 @@ public class SourcecreaterApplicationTests {
 		    return null;
 		};
 
-		
 		String url = serverPath
 				+ "/getDao?"
 				+ "tableName=" + config.getTableName()
@@ -76,12 +87,14 @@ public class SourcecreaterApplicationTests {
 				+ "&serviceImplPackage=" + config.getServiceImplPackage()
 				+ "&modelPackage=" + config.getModelPackage()
 				+ "&utilsPackage=" + config.getUtilsPackage()
-				+ "&modelName=" + config.getModelName();
+				+ "&modelName=" + config.getModelName()
+				+ "&sqlConnectUrl=" + URLEncoder.encode(config.getSqlConnectUrl(), "UTF-8")
+				;
 		
 		restTemplate.execute(URI.create(url), HttpMethod.GET, requestCallback, responseExtractor);
 	}
 	
-	public void getDaoImpl() {
+	public void getDaoImpl() throws UnsupportedEncodingException {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// Optional Accept header
@@ -111,12 +124,14 @@ public class SourcecreaterApplicationTests {
 				+ "&serviceImplPackage=" + config.getServiceImplPackage()
 				+ "&modelPackage=" + config.getModelPackage()
 				+ "&utilsPackage=" + config.getUtilsPackage()
-				+ "&modelName=" + config.getModelName();
+				+ "&modelName=" + config.getModelName()
+				+ "&sqlConnectUrl=" + URLEncoder.encode(config.getSqlConnectUrl(), "UTF-8")
+				;
 		
 		restTemplate.execute(URI.create(url), HttpMethod.GET, requestCallback, responseExtractor);
 	}
 	
-	public void getService() {
+	public void getService() throws UnsupportedEncodingException {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// Optional Accept header
@@ -145,12 +160,14 @@ public class SourcecreaterApplicationTests {
 				+ "&serviceImplPackage=" + config.getServiceImplPackage()
 				+ "&modelPackage=" + config.getModelPackage()
 				+ "&utilsPackage=" + config.getUtilsPackage()
-				+ "&modelName=" + config.getModelName();
+				+ "&modelName=" + config.getModelName()
+				+ "&sqlConnectUrl=" + URLEncoder.encode(config.getSqlConnectUrl(), "UTF-8")
+				;
 		
 		restTemplate.execute(URI.create(url), HttpMethod.GET, requestCallback, responseExtractor);
 	}
 	
-	public void getServiceImpl() {
+	public void getServiceImpl() throws UnsupportedEncodingException {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// Optional Accept header
@@ -179,12 +196,14 @@ public class SourcecreaterApplicationTests {
 				+ "&serviceImplPackage=" + config.getServiceImplPackage()
 				+ "&modelPackage=" + config.getModelPackage()
 				+ "&utilsPackage=" + config.getUtilsPackage()
-				+ "&modelName=" + config.getModelName();
+				+ "&modelName=" + config.getModelName()
+				+ "&sqlConnectUrl=" + URLEncoder.encode(config.getSqlConnectUrl(), "UTF-8")
+				;
 		
 		restTemplate.execute(URI.create(url), HttpMethod.GET, requestCallback, responseExtractor);
 	}
 	
-	public void getController() {
+	public void getController() throws UnsupportedEncodingException {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		// Optional Accept header
@@ -215,6 +234,7 @@ public class SourcecreaterApplicationTests {
 				+ "&utilsPackage=" + config.getUtilsPackage()
 				+ "&modelName=" + config.getModelName()
 				+ "&ctlPackage=" + config.getCtlPackage()
+				+ "&sqlConnectUrl=" + URLEncoder.encode(config.getSqlConnectUrl(), "UTF-8")
 				;
 		
 		restTemplate.execute(URI.create(url), HttpMethod.GET, requestCallback, responseExtractor);

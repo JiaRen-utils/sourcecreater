@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class RefelctTool {
 
 	public static void getMethodInfo(String pkgName) {
@@ -62,17 +63,6 @@ public class RefelctTool {
 			return maps;
 		}
 	}
-//				try {
-//					Config obj = new Config();
-//					Method method = obj.getClass().getMethod("get" + upperName);
-//					Object value = method.invoke(obj);
-//					System.out.println("value:" + value);
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//	System.out.println("属性:" + fieldName);
-//	String upperName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 
 	public static void main(String[] args) {
 		getMethodInfo("com.sourcecreater.controller.Config");

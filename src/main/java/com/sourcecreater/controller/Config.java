@@ -47,10 +47,22 @@ public class Config {
 	 */
 	private String utilsPackage;
 	
+	/**
+	 *	mysql数据库连接URL 
+	 */
+	private String sqlConnectUrl;
+	
+	
 	private List<Map<String, Object>> tableList;
 	
 	private List<List<Map<String, Object>>> listInfo;
 	
+	public String getSqlConnectUrl() {
+		return sqlConnectUrl;
+	}
+	public void setSqlConnectUrl(String sqlConnectUrl) {
+		this.sqlConnectUrl = sqlConnectUrl;
+	}
 	public List<List<Map<String, Object>>> getListInfo() {
 		return listInfo;
 	}

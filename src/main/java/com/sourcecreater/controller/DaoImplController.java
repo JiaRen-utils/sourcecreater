@@ -34,7 +34,7 @@ public class DaoImplController {
 
 	public void updateById(Map<String, Object> model, Config config) {
 //		List<Map<String, Object>> maps = RefelctTool.getAttribute(config.getModelPackage() + "." +config.getModelName());
-		List<Map<String, Object>> maps = CreateModel.getAttribute(config.getTableName());
+		List<Map<String, Object>> maps = CreateModel.getAttribute(config.getTableName(), config.getSqlConnectUrl());
 		model.put("itemGetIdMethod", maps.get(0).get("methodName"));
 		model.put("itemIdName", maps.get(0).get("name"));
 	}
@@ -47,17 +47,17 @@ public class DaoImplController {
 	 */
 	public void whereSql(Map<String, Object> model, Config config) {
 //		model.put("sequenceWhere", RefelctTool.getAttribute(config.getModelPackage() + "." +config.getModelName()));
-		model.put("sequenceWhere", CreateModel.getAttribute(config.getTableName()));
+		model.put("sequenceWhere", CreateModel.getAttribute(config.getTableName(), config.getSqlConnectUrl()));
 	}
 
 	public void setSql(Map<String, Object> model, Config config) {
 //		model.put("sequenceSet", RefelctTool.getAttribute(config.getModelPackage() + "." +config.getModelName()));
-		model.put("sequenceSet", CreateModel.getAttribute(config.getTableName()));
+		model.put("sequenceSet", CreateModel.getAttribute(config.getTableName(), config.getSqlConnectUrl()));
 	}
 
 	public void getListSql(Map<String, Object> model, Config config) {
 		model.put("tableName", config.getTableName());
 //		model.put("sequenceGetList", RefelctTool.getAttribute(config.getModelPackage() + "." +config.getModelName()));
-		model.put("sequenceGetList", CreateModel.getAttribute(config.getTableName()));
+		model.put("sequenceGetList", CreateModel.getAttribute(config.getTableName(), config.getSqlConnectUrl()));
 	}
 }

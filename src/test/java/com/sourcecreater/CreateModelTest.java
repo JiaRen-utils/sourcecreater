@@ -14,7 +14,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import com.sourcecreater.controller.Config;
 
-public class CreateModel {
+public class CreateModelTest {
 
 	Config config = new Config();
 
