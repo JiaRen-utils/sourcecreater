@@ -52,11 +52,33 @@ public class Config {
 	 */
 	private String sqlConnectUrl;
 	
+	private String serverPath;
+	private String srcPathCommon;    //dao、service代码保存目录
+	private String srcPathCtl;    //controller代码保存目录
 	
 	private List<Map<String, Object>> tableList;
 	
 	private List<List<Map<String, Object>>> listInfo;
 	
+	
+	public String getServerPath() {
+		return serverPath;
+	}
+	public void setServerPath(String serverPath) {
+		this.serverPath = serverPath;
+	}
+	public String getSrcPathCommon() {
+		return srcPathCommon;
+	}
+	public void setSrcPathCommon(String srcPathCommon) {
+		this.srcPathCommon = srcPathCommon;
+	}
+	public String getSrcPathCtl() {
+		return srcPathCtl;
+	}
+	public void setSrcPathCtl(String srcPathCtl) {
+		this.srcPathCtl = srcPathCtl;
+	}
 	public String getSqlConnectUrl() {
 		return sqlConnectUrl;
 	}
