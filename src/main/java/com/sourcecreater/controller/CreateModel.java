@@ -2,17 +2,13 @@ package com.sourcecreater.controller;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
-
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
-import com.sourcecreater.controller.Config;
 
 public class CreateModel {
 
