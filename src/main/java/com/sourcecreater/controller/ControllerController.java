@@ -25,6 +25,7 @@ public class ControllerController {
 		model.put("modelPackage", config.getModelPackage());
 		model.put("utilsPackage", config.getUtilsPackage());
 		model.put("modelName", config.getModelName());
+		model.put("ctlPackage", config.getCtlPackage());
 		
 		response.setContentType("text/plain");
 		response.addHeader("Content-Disposition", "attachment;filename=" + config.getModelName() + "Ctl.java");
