@@ -25,7 +25,7 @@
 	</properties>
 
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
@@ -36,19 +36,14 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.7</version>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-jpa</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.health</groupId>
-			<artifactId>health-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.health</groupId> <artifactId>health-common</artifactId> 
+			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
@@ -61,6 +56,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- java data struct library -->
+		<dependency>
+			<groupId>jdsl</groupId>
+			<artifactId>jdsl</artifactId>
+			<version>2.1</version>
 		</dependency>
 	</dependencies>
 
